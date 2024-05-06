@@ -19,5 +19,6 @@ extract_i_from_iv = function(V, I, V0 = -1.0) {
             "V is not numeric"              = is.numeric(V),
             "I is not numeric"              = is.numeric(I),
             "V0 is not numeric"             = is.numeric(V0))
-  I = stats::approx(V, I)$y
+
+  I = stats::approx(V, I, V0)$y
 }
