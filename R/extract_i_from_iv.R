@@ -12,8 +12,8 @@
 #' V = c(0, 1, 2, 3)
 #' I = c(-5, -2, 2, 5)
 #' V0 = 1.5
-#' I = extractI_from_IV(V, I, V0 = V0)
-extractI_from_IV = function(V, I, V0 = -1.0) {
+#' I = extract_i_from_iv(V, I, V0 = V0)
+extract_i_from_iv = function(V, I, V0 = -1.0) {
   stopifnot("Va nd I are different lengths" = length(V) == length(I),
             "V0 is not in range of V"       = V0 >= min(V) & V0 <= max(V),
             "V is not numeric"              = is.numeric(V),
