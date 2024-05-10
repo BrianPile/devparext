@@ -22,10 +22,10 @@ A numeric value
 Extract side mode suppresion ratio from spectrum data
 }
 \examples{
-wav = seq(1300, 1320, by = 1)
-pow = rep(-70, length(wav))
-pow[6] = -45
-pow[10] = -10
+wav = seq(1300, 1320, by = 0.1)
+pow = rep(-70, length(wav)) + rnorm(length(wav), 0, 1)
+pow[101:103] = c(-30, -10, -30)
+pow[50:52] = c(-40, -38, -40)
 smsr = extract_smsr(wav, pow)
 print(smsr)
 }
