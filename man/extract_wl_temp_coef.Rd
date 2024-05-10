@@ -18,9 +18,9 @@ A numeric value
 Extract wavelength temperature coefficient
 }
 \examples{
-T = c(25, 50, 75)
-Lp = c(1308, 1310.4, 1312.3)
-temp_coef = extract_wl_temp_coef(T, Lp)$temp_coef
-r2 = extract_wl_temp_coef(T, Lp)$rsquared
+temps = c(25, 50, 75)
+peak_wavs = c(1308, 1310.4, 1312.3)
+temp_coef = extract_wl_temp_coef(temps, peak_wavs)$temp_coef
+r2 = extract_wl_temp_coef(temps, peak_wavs)$rsquared
 print(temp_coef)
 }
