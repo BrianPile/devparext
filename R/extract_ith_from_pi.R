@@ -1,4 +1,4 @@
-extractIth = function(I, P, method = "intercept") {
+extract_ith_from_pi = function(I, P, method = "intercept") {
 
   if(method == "intercept") {
     #### intercept ####
