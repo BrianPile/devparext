@@ -1,4 +1,4 @@
 ^devparext\.Rproj$
 ^\.Rproj\.user$
 ^LICENSE\.md$
-^\./R/my_tester\.R$
+^my_helper_development_scripts$

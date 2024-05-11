@@ -1,5 +1,5 @@
 Package: devparext
-Title: Extract device parameters for raw measurement data
+Title: Extract device parameters from raw measurement data
 Version: 0.0.0.9000
 Authors@R: 
     person("Brian", "Pile", , "brian.pile@gmail.com", role = c("aut", "cre"),

@@ -1,4 +1,24 @@
-extract_ith_from_pi = function(I, P, method = "intercept") {
+#' Extract threshold current from P-I data
+#'
+#' @param I A numeric vector of currents
+#' @param P A numeric vector of powers
+#' @param method The threshold current extraction method
+#' @param n1_smooth An integer. P-I curve moving average filter length.
+#' @param n2_smooth An integer. dP/dI curve moving average filter length.
+#' @param n3_smooth An integer. d2P/dI2 curve moving average filter length.
+#'
+#' @return A numeric value
+#' @export
+#'
+#' @examples
+#' I = example_liv$`current[mA]`
+#' P = example_liv$`power[mW]`
+#' Ith = extract_ith_from_pi(I, P, method = "second_derivative")
+extract_ith_from_pi = function(I, P, method = "intercept", n1_smooth = 1, n2_smooth = 1, n3_smooth = 1) {
+
+  # n1_smooth: smooth span for P-I curve smoothing
+  # n2_smooth: smooth span for dP/dI curve smoothing
+  # n3_smooth: smooth span for d/dI(dP/dI) curve smoothing
 
   if(method == "intercept") {
     #### intercept ####
@@ -134,8 +154,9 @@ extract_ith_from_pi = function(I, P, method = "intercept") {
 
     } else {
 
-      dLdI = my_derivative(I, Pnorm)
-      dLdI2 = my_derivative(I, my_derivative(I, Pnorm) )
+      dLdI = my_derivative(I, my_smooth(Pnorm, N = n1_smooth))
+      dLdI2 = my_derivative(I, my_smooth(dLdI, N = n2_smooth))
+      dLdI2 = my_smooth(dLdI2, N = n3_smooth)
 
       dLdI2sub = dLdI2[idx_sub]
 
@@ -147,7 +168,7 @@ extract_ith_from_pi = function(I, P, method = "intercept") {
         return(NA)
       } else {
         pks = pracma::findpeaks(dLdI2sub,
-                        minpeakheight = peak_threshold)
+                                minpeakheight = peak_threshold)
       }
 
       if (is.null(pks)) {
