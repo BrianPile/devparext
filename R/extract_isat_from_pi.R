@@ -32,8 +32,13 @@ extract_isat_from_pi = function(I, P) {
   b = stats::coef(model)["xpoints"]
   c = stats::coef(model)["(Intercept)"]
 
-  Isat = -b/2/a
-  Isat = unname(Isat)
+  if (any(is.na(c(a, b, c)))) {
+    warning("extract_isat_from_pi: one of the linear model coefficients wasd NA. defaulting to Isat at Pmax no fitting.")
+    Isat = I[idx_Pmax]
+  } else {
+    Isat = -b/2/a
+    Isat = unname(Isat)
+  }
 
   return(Isat)
 }
