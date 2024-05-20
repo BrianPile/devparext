@@ -3,6 +3,7 @@
 export(extract_bw20dB)
 export(extract_i_from_iv)
 export(extract_iop_from_pi)
+export(extract_isat_from_pi)
 export(extract_ith_from_pi)
 export(extract_peak_wav)
 export(extract_pf_from_pi)

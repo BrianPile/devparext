@@ -16,6 +16,9 @@
 #' Ith = extract_ith_from_pi(I, P, method = "second_derivative")
 extract_ith_from_pi = function(I, P, method = "intercept", n1_smooth = 1, n2_smooth = 1, n3_smooth = 1) {
 
+  # TODO: modify 2nd derivative method so pracma::findpeaks isn't relied on it
+  # should be possible to use base R instead.
+
   # n1_smooth: smooth span for P-I curve smoothing
   # n2_smooth: smooth span for dP/dI curve smoothing
   # n3_smooth: smooth span for d/dI(dP/dI) curve smoothing
@@ -109,7 +112,7 @@ extract_ith_from_pi = function(I, P, method = "intercept", n1_smooth = 1, n2_smo
     # maximum value (can tune the percentages, 2 & 10 is ok compromise as of 2022-10-13)
     idx_tofit = P >= 0.05 & P <= 0.15
 
-    if (any(idx_tofit) == FALSE) {
+    if (any(idx_tofit) == FALSE | any(is.na(idx_tofit))) {
       Ith = NA
       return(Ith)
     }

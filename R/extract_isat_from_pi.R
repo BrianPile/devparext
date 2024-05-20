@@ -1,3 +1,12 @@
+#' Extract saturation current (Isat) from power-current data
+#'
+#' @param I A numeric vector of sweep currents
+#' @param P A numeric vector of power measurements
+#'
+#' @return A numeric value
+#' @export
+#'
+#' @examples
 extract_isat_from_pi = function(I, P) {
 
   idx_Pmax = which.max(P)
