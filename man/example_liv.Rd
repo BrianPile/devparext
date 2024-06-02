@@ -24,6 +24,6 @@ internal measurement csv file
 example_liv
 }
 \description{
-This is an example  LIV measurement of a high power C-band DFB.
+This is an example LIV measurement of a high power C-band DFB.
 }
 \keyword{datasets}

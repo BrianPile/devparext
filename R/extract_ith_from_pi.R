@@ -105,7 +105,7 @@ extract_ith_from_pi = function(I, P, method = "intercept", n1_smooth = 1, n2_smo
     # condition the L-I curve
     P = P - P[1] # make power start at zero
     P = P/max(P) # normalize to max power of L-I curve
-    P = P[I < Isat] # eleminate L-I curve past Isat
+    P = P[I < Isat] # eliminate L-I curve past Isat
     I = I[I < Isat]
 
     # get the portion of the L-I curve where the power is between P1% and P2% of the

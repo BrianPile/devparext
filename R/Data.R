@@ -1,6 +1,6 @@
 #' Example L-I-V sweep data
 #'
-#' This is an example  LIV measurement of a high power C-band DFB.
+#' This is an example LIV measurement of a high power C-band DFB.
 #'
 #'
 #' @format ## `example_liv`

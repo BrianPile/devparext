@@ -24,7 +24,7 @@ df_summary_liv = df_liv |>
                                 method = "second_derivative",
                                 n1_smooth = n1_smooth,
                                 n2_smooth = n2_smooth,
-                                n3_smooth)
+                                n3_smooth = n3_smooth)
   ) |>
   ungroup()
 
@@ -40,9 +40,9 @@ df_liv |>
   geom_path() +
   geom_vline(
     data = df_summary_liv,
-    mapping = aes(xintercept = Ith2d/1e-3, color = as.factor(`Burn In`))
+    mapping = aes(xintercept = Ithlin/1e-3, color = as.factor(`Burn In`))
   ) +
-  coord_cartesian(xlim = c(0, 20), ylim = c(0, 50)) +
+  coord_cartesian(xlim = c(5, 10), ylim = c(0, 10)) +
   facet_wrap(~ SN) +
   labs(x = "Current (mA)",
        y = "PD Current (uA)",
