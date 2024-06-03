@@ -5,7 +5,7 @@
 #'
 #' @return A data frame with all the rows of data combined
 #' @export
-# @importFrom rlang .data
+#' @importFrom rlang .data
 #'
 #' @examples
 load_raw_liv_data_files = function(paths, pattern = "-LIV.csv") {
@@ -36,7 +36,7 @@ load_raw_liv_data_files = function(paths, pattern = "-LIV.csv") {
     ) |>
     # separate (using tidyfast::dt_separate) liv_id into its parts, and drop it
     tidyfast::dt_separate(
-      col = liv_id,
+      col = .data$liv_id,
       into = c("waferID", "cellID", "barID", "dieID", "tempC", "facetID", "ARID", "HRID", "testID"),
       sep = "-",
       remove = TRUE
