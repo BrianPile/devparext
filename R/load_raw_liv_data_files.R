@@ -9,6 +9,8 @@
 #'
 #' @examples
 load_raw_liv_data_files = function(paths, pattern = "-LIV.csv") {
+  liv_id = NULL # due to NSE notes in R CMD check related to data.table
+
 
   # get list of LIV files in the file path
   liv_files = list.files(path = paths,
@@ -36,14 +38,15 @@ load_raw_liv_data_files = function(paths, pattern = "-LIV.csv") {
     ) |>
     # separate (using tidyfast::dt_separate) liv_id into its parts, and drop it
     tidyfast::dt_separate(
-      col = .data$liv_id,
+      col = liv_id,
       into = c("waferID", "cellID", "barID", "dieID", "tempC", "facetID", "ARID", "HRID", "testID"),
       sep = "-",
       remove = TRUE
     ) |>
     # unite device info columns to create SN
     tidyr::unite(
-      "SN", c("waferID":"dieID"),
+      "SN",
+      c("waferID":"dieID"),
       sep = "-",
       remove = TRUE
     ) |>
