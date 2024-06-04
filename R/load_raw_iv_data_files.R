@@ -1,7 +1,7 @@
 #' Load many raw IV data files into a data frame
 #'
-#' @param paths paths The file path(s) to folder(s) containing the csv files
-#' @param pattern pattern A pattern to match certain file names
+#' @param paths The file path(s) to folder(s) containing the csv files
+#' @param pattern A pattern to match certain file names
 #'
 #' @return A data frame with all the rows of data combined
 #' @export
@@ -41,7 +41,8 @@ load_raw_iv_data_files = function(paths, pattern = "-IV.csv$") {
     # move some columns around
     dplyr::relocate(c(.data$voltage, .data$current), .after = "testID") |>
     dplyr::relocate(.data$testID, .before = "tempC") |>
-    dplyr::mutate(tempC = as.numeric(stringr::str_replace(.data$tempC, "C", "")))
+    dplyr::mutate(tempC = as.numeric(stringr::str_replace(.data$tempC, "C", ""))) |>
+    tibble::as_tibble()
 
   return(df_iv)
 }

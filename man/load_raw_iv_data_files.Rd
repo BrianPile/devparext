@@ -7,9 +7,9 @@
 load_raw_iv_data_files(paths, pattern = "-IV.csv$")
 }
 \arguments{
-\item{paths}{paths The file path(s) to folder(s) containing the csv files}
+\item{paths}{The file path(s) to folder(s) containing the csv files}
 
-\item{pattern}{pattern A pattern to match certain file names}
+\item{pattern}{A pattern to match certain file names}
 }
 \value{
 A data frame with all the rows of data combined
