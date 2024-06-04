@@ -24,5 +24,6 @@ Imports:
     purrr,
     rlang,
     stringr,
+    tibble,
     tidyfast,
     tidyr
