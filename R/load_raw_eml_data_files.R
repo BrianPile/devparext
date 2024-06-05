@@ -21,7 +21,6 @@ load_raw_eml_data_files = function(paths, pattern = "-EML.csv") {
     purrr::list_rbind(names_to = "file_name") |>
     dplyr::mutate(testDate = file.info(.data$file_name)$ctime, .before = "file_name")
 
-
   df_eml = df_eml0 |>
     dplyr::rename(voltage = .data$`voltage[V]`, power = .data$`power[mW]`, current = .data$`current[mA]`) |>
     dplyr::mutate(eml_id = basename(.data$file_name), .before = "file_name") |>
