@@ -23,7 +23,7 @@ load_raw_liv_data_files = function(paths, pattern = "-LIV.csv") {
     purrr::set_names() |>
     purrr::map(\(x) data.table::fread(file = x)) |>
     purrr::list_rbind(names_to = "file_name") |>
-    dplyr::mutate(liv_test_date = file.info(.data$file_name)$ctime, .before = "file_name")
+    dplyr::mutate(test_date_liv = file.info(.data$file_name)$ctime, .before = "file_name")
 
   # massage liv data
   df_liv = df_liv0  |>
