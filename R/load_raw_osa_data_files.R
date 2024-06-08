@@ -24,7 +24,7 @@ load_raw_osa_data_files = function(paths, pattern = "-OSA.csv$") {
     purrr::map(\(x) data.table::fread(file = x)) |>
     purrr::list_rbind(names_to = "file_name") |>
     dplyr::rename(wavelength = .data$`wavelength[nm]`, power = .data$`power[dBm]`) |>
-    dplyr::mutate(osa_test_date = file.info(.data$file_name)$ctime, .before = "file_name")
+    dplyr::mutate(test_date_osa = file.info(.data$file_name)$ctime, .before = "file_name")
 
   # massage the data into desired formats
   df_osa = df_osa0 |>

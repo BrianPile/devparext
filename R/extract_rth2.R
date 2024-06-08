@@ -1,3 +1,13 @@
+#' Extract thermal resistance using single-temperature method
+#'
+#' @param Pth A vector of thermal power dissipation values
+#' @param Lp A vector of peak wavelength values
+#' @param m_hs A numeric value of the wavelength temperature coefficient (nm/C)
+#'
+#' @return A data frame with column names Rth2, mRth2Pth, Rth2r2
+#' @export
+#'
+#' @examples
 extract_rth2 = function(Pth, Lp, m_hs) {
 
   if (all(is.na(Lp))) {

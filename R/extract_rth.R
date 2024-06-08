@@ -1,3 +1,13 @@
+#' Extract thermal resistance using multi-temperature method
+#'
+#' @param temps A vector of temperature values
+#' @param pow_thermal A vector of thermal power dissipation values
+#' @param peak_wav A vector of peak wavelength values
+#'
+#' @return A data frame with column names Rth, mRthhs, mRthPth, b, and Pthr2
+#' @export
+#'
+#' @examples
 extract_rth = function(temps, pow_thermal, peak_wav) {
 
   linearMod = stats::lm(peak_wav ~ temps + pow_thermal,
@@ -16,7 +26,7 @@ extract_rth = function(temps, pow_thermal, peak_wav) {
     data.frame(
       "Rth" = Rth,
       "mRthhs" = m_hs,
-      "mRthpow_thermal" = m_pow_thermal,
+      "mRthPth" = m_pow_thermal,
       "b" = b,
       "Rthr2" = r2
     )
