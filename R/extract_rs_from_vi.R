@@ -19,15 +19,15 @@
 extract_rs_from_vi = function(I, V, I0, Ispan = 4*1e-3) {
   # this is original parameter checking. changing to stopifnot() but need to
   # make sure it will still work as intended. BP 2024-05-10
-  # if (is.na(I0) == TRUE) {
-  #   return(NA)
-  # }
-  # if (I0 > max(I)) {
-  #   return(NA)
-  # }
+  if (is.na(I0) == TRUE) {
+    return(NA)
+  }
+  if (I0 > max(I)) {
+    return(NA)
+  }
 
-  stopifnot("I0 must be numeric" = is.numeric(I0),
-            "I0 must be in the range of I" = I0 >= min(I) & I0 <= max(I))
+  # stopifnot("I0 must be numeric" = is.numeric(I0),
+  #           "I0 must be in the range of I" = I0 >= min(I) & I0 <= max(I))
 
   Isub = I[I>=(I0-Ispan/2) & I<=(I0+Ispan/2)]
   Vsub = V[I>=(I0-Ispan/2) & I<=(I0+Ispan/2)]

@@ -17,6 +17,12 @@
 
 extract_vf_from_vi = function(I, V, I0) {
 
+  # check if I0 is NA
+  if (is.na(I0)) {
+    warning("extract_vf_from_pi: I0 is NA, returning NA")
+    return(NA)
+  }
+
   # return NA in some cases
   if (I0 < min(I) | I0 > max(I)) {
     warning("extract_vf_from_pi: I0 is not in the range of I, returning vf = NA")

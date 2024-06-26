@@ -2,38 +2,30 @@
 % Please edit documentation in R/extract_ith_from_pi.R
 \name{extract_ith_from_pi}
 \alias{extract_ith_from_pi}
-\title{Extract threshold current from P-I data}
+\title{Extract threshold current}
 \usage{
 extract_ith_from_pi(
   I,
   P,
-  method = "intercept",
   n1_smooth = 1,
   n2_smooth = 1,
-  n3_smooth = 1
+  n3_smooth = 1,
+  plot_debug = FALSE
 )
 }
 \arguments{
-\item{I}{A numeric vector of currents}
+\item{I}{A numeric vector of sourced current values}
 
-\item{P}{A numeric vector of powers}
+\item{P}{A numeric vector of measured power values}
 
-\item{method}{The threshold current extraction method}
+\item{n1_smooth}{Smooth span for P-I curve}
 
-\item{n1_smooth}{An integer. P-I curve moving average filter length.}
+\item{n2_smooth}{Smooth span for P-I curve 1st derivative}
 
-\item{n2_smooth}{An integer. dP/dI curve moving average filter length.}
+\item{n3_smooth}{Smooth span for P-I curve 2nd derivative}
 
-\item{n3_smooth}{An integer. d2P/dI2 curve moving average filter length.}
-}
-\value{
-A numeric value
+\item{plot_debug}{A Boolean value for setting the plot inspection mode}
 }
 \description{
-Extract threshold current from P-I data
-}
-\examples{
-I = example_liv$`current[mA]`
-P = example_liv$`power[mW]`
-Ith = extract_ith_from_pi(I, P, method = "second_derivative")
+Extract threshold current
 }
