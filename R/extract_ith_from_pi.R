@@ -13,7 +13,11 @@
 #' @importFrom stats approx
 #'
 #' @examples
+
 extract_ith_from_pi = function(I, P, n1_smooth = 1, n2_smooth = 1, n3_smooth = 1, plot_debug = FALSE) {
+  # TODO: remove negative values from second derivative?
+
+
 
   # check the data for NA, error if found
   if (any(is.na(c(I, P)))) {
@@ -38,6 +42,11 @@ extract_ith_from_pi = function(I, P, n1_smooth = 1, n2_smooth = 1, n3_smooth = 1
   I = I[idx]
   P = P[idx]
 
+  # return NA's if I or P is zero length
+  if (length(I) == 0 | length(P) == 0) {
+    return(list(NA, NA))
+  }
+
   # calculate 1st and 2nd derivatives
   d1 = my_derivative(I, P)
   d1 = my_smooth(d1, n2_smooth)         # second level of smoothing
@@ -49,17 +58,23 @@ extract_ith_from_pi = function(I, P, n1_smooth = 1, n2_smooth = 1, n3_smooth = 1
 
   # find the "average level of d1 above threshold by using a histogram of values
   # grater than the mean
-  h_midpoints = hist(d1[d1 > mean(d1)], breaks = 20, plot = FALSE)$mids
-  h_counts = hist(d1[d1 > mean(d1)], breaks = 20, plot = FALSE)$counts
-  d1_above_thresh = h_midpoints[which.max(h_counts)]
+  d1_above_mean = d1[d1 > mean(d1)]
+  if (length(d1_above_mean) == 0) {
+    Ith_1st_deriv = NA
+    d1_above_thresh = NA
+  } else {
+    h_midpoints = hist(d1[d1 > mean(d1)], breaks = 20, plot = FALSE)$mids
+    h_counts = hist(d1[d1 > mean(d1)], breaks = 20, plot = FALSE)$counts
+    d1_above_thresh = h_midpoints[which.max(h_counts)]
 
-  # find the current where d1 is half of the avg above threshold value (that is
-  # the definition of the first-derivative threshold current)
-  idx_min = which.min(abs(d1 - d1_above_thresh/2))
-  d1_points = d1[idx_min + -1:1]     # get closest point and nearest neighbors
-  I_points = I[idx_min + -1:1]       # get corresponding current points
-  Ith_1st_deriv = approx(d1_points, I_points, d1_above_thresh/2)$y
-  # looks pretty good!!
+    # find the current where d1 is half of the avg above threshold value (that is
+    # the definition of the first-derivative threshold current)
+    idx_min = which.min(abs(d1 - d1_above_thresh/2))
+    d1_points = d1[idx_min + -1:1]     # get closest point and nearest neighbors
+    I_points = I[idx_min + -1:1]       # get corresponding current points
+    Ith_1st_deriv = approx(d1_points, I_points, d1_above_thresh/2)$y
+    # looks pretty good!!
+  }
 
 
   #### 2nd derivative method ####
