@@ -20,7 +20,7 @@ extract_bw20dB = function(wav, power) {
   }
 
   if (extract_smsr(wav, power) < 20) {
-    warning("BW20dB: SMSR was less than 20dB. Returning NA.")
+    # warning("BW20dB: SMSR was less than 20dB. Returning NA.")
     return(NA)
   }
 

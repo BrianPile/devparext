@@ -21,18 +21,18 @@ extract_pf_from_pi = function(I, P, I0) {
 
   # check if I0 is NA
   if (is.na(I0)) {
-    warning("extract_pf_from_pi: I0 is NA, returning NA")
+    # warning("extract_pf_from_pi: I0 is NA, returning NA")
     return(NA)
   }
 
   # return NA in some cases
   if (I0 < min(I) | I0 > max(I)) {
-    warning("extract_pf_from_pi: I0 is not in the range of I, returning pf = NA")
+    # warning("extract_pf_from_pi: I0 is not in the range of I, returning pf = NA")
     return(NA)
   }
 
   if (length(I) == 1) {
-    warning("extract_pf_from_pi: current vector is length 1, returning pf = NA")
+    # warning("extract_pf_from_pi: current vector is length 1, returning pf = NA")
     return(NA)
   }
 
