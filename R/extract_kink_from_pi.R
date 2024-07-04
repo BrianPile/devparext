@@ -111,9 +111,6 @@ extract_kink_from_pi = function(I, P, Istart, Istop) {
     KINK = NA
   }
 
-
-
-
   # return the results in a data frame
   return(
     data.frame(
