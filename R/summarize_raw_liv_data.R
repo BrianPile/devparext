@@ -25,8 +25,6 @@ summarize_raw_liv_data = function(df_liv, If_vec, Ix_vec, Pop_vec, Ik1 = 30, Ik2
       n1_smooth = n1_smooth,
       n2_smooth = n2_smooth,
       n3_smooth = n3_smooth,
-      # Ith2d = extract_ith_from_pi_old(.data$current, .data$power_sm, method = "second_derivative") / 1e-3,
-      # Ithlin = extract_ith_from_pi_old(.data$current, .data$power_sm, method = "normalized_intercept_fit") / 1e-3,
       Ith1d = extract_ith_from_pi(.data$current, .data$power, n1_smooth, n2_smooth)[[1]] / 1e-3,
       Ith2d = extract_ith_from_pi(.data$current, .data$power, n1_smooth, n2_smooth, n3_smooth)[[2]] / 1e-3 ,
       Pth = extract_pf_from_pi(.data$current, .data$power_sm, I0 = .data$Ith1d*1e-3) /1e-3,
@@ -49,13 +47,14 @@ summarize_raw_liv_data = function(df_liv, If_vec, Ix_vec, Pop_vec, Ik1 = 30, Ik2
       If = If_vec / 1e-3,
       Pf = purrr::map_dbl(If_vec, \(x) extract_pf_from_pi(.data$current, .data$power, I0 = x)) / 1e-3,
       SE = purrr::map_dbl(If_vec, \(x) extract_se_from_pi(.data$current, .data$power, I0 = x)),
-      Vf = purrr::map_dbl(If_vec, \(x) extract_vf_from_vi(.data$current, .data$voltage, I0 = x))
+      Vf = purrr::map_dbl(If_vec, \(x) extract_vf_from_vi(.data$current, .data$voltage, I0 = x)),
+      Rs = purrr::map_dbl(If_vec, \(x) extract_rs_from_vi(.data$current, .data$voltage, I0 = x))
     )
 
   df_summary_liv_If = df_summary_liv_If_long |>
     tidyr::pivot_wider(
       names_from = .data$If_index,
-      values_from = c(.data$If, .data$Pf, .data$SE, .data$Vf),
+      values_from = c(.data$If, .data$Pf, .data$SE, .data$Vf, .data$Rs),
       names_sep = ""
     )
 

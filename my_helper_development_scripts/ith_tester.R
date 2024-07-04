@@ -5,7 +5,7 @@ graphical_debug_ith = function(I, P, group, ...) {
   print(group)
 
   Ith_list = extract_ith_from_pi(I, P, ...)
-  # print(Ith_list)
+  print(Ith_list)
 
   # pause for inspection
   # invisible(readline(prompt = "press [enter] to continue: "))
@@ -35,10 +35,22 @@ graphical_debug_ith = function(I, P, group, ...) {
 # df_liv = read_csv(file = "./inst/extdata/ith_problem_data/HTOL18 71026[10]-21-K-10.csv")
 #
 # EEVEE CoCs POETA data
-df_liv = load_raw_liv_data_files("/Users/brianpile/Dropbox (Personal)/my_R_packages/devparext/inst/extdata/eevee cband coc data/LIV_POETA")
+# df_liv = load_raw_liv_data_files("/Users/brianpile/Dropbox (Personal)/my_R_packages/devparext/inst/extdata/eevee cband coc data/LIV_POETA")
 
-# sivers bar test data
+# # sivers bar test data
 # df_liv = data.table::fread(file = "/Users/brianpile/POET Technologies Dropbox/Brian Pile/Brian Pile/Lasers/Almae/C-Band/Phase 2/data/Sivers/orders/PT23-0258 cband phase3/work package 2 - processing batch A/bartest data/P10515/data/P10515_combined_LIV.csv")
+# sn_Ith1d_probs = c("71636_30-42-29-M0",
+#                    "71636_30-42-31-L3",
+#                    "71636_30-42-33-H4",
+#                    "71636_30-42-49-J7",
+#                    "71636_30-52-31-R8",
+#                    "71636_30-52-31-S6",
+#                    "71636_30-52-34-N6",
+#                    "71636_30-52-34-S1")
+
+# P10514 problem data
+df_liv = read_csv(file = "./inst/extdata/P10514 problematic data/71635_30-23-74-82.csv")
+
 
 # walk through the groups and view the ith algorithm internal data
 # variables
@@ -47,23 +59,24 @@ n2_smooth = 5
 n3_smooth = 5
 
 df_liv |>
-  # filter(SN == "71636_30-52-30-N4") |>
+  # filter(SN %in% sn_Ith1d_probs) |>
+  # filter(SN == "71636_30-41-17-H6") |>
   group_by(SN) |>
   group_walk( ~ graphical_debug_ith(
     .x$current, .x$power, .y,
     n1_smooth, n2_smooth, n3_smooth,
-    plot_debug = F))
+    plot_debug = TRUE))
 
 
-df_liv |>
-  summarize(
-    .by = SN,
-    Ith1d = extract_ith_from_pi(
-      current, power,
-      plot_debug = TRUE,
-      n1_smooth = 3,
-      n2_smooth = 3,
-      n3_smooth = 3
-    )[[1]]
-  )
+# df_liv |>
+#   summarize(
+#     .by = SN,
+#     Ith1d = extract_ith_from_pi(
+#       current, power,
+#       plot_debug = TRUE,
+#       n1_smooth = 3,
+#       n2_smooth = 3,
+#       n3_smooth = 3
+#     )[[1]]
+#   )
 

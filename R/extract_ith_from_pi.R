@@ -17,8 +17,6 @@
 extract_ith_from_pi = function(I, P, n1_smooth = 1, n2_smooth = 1, n3_smooth = 1, plot_debug = FALSE) {
   # TODO: remove negative values from second derivative?
 
-
-
   # check the data for NA, error if found
   if (any(is.na(c(I, P)))) {
     stop("NA's found in current or power!")
@@ -42,8 +40,8 @@ extract_ith_from_pi = function(I, P, n1_smooth = 1, n2_smooth = 1, n3_smooth = 1
   I = I[idx]
   P = P[idx]
 
-  # return NA's if I or P is zero length
-  if (length(I) == 0 | length(P) == 0) {
+  # return NA's if I or P is zero length, or length 1
+  if (length(I) <= 1 | length(P) <= 1) {
     return(list(NA, NA))
   }
 
@@ -57,30 +55,45 @@ extract_ith_from_pi = function(I, P, n1_smooth = 1, n2_smooth = 1, n3_smooth = 1
   #### 1st derivative method ####
 
   # find the "average level of d1 above threshold by using a histogram of values
-  # grater than the mean
+  # greater than the mean
   d1_above_mean = d1[d1 > mean(d1)]
   if (length(d1_above_mean) == 0) {
     Ith_1st_deriv = NA
-    d1_above_thresh = NA
+    d1_level_above_thresh = NA
   } else {
     h_midpoints = hist(d1[d1 > mean(d1)], breaks = 20, plot = FALSE)$mids
     h_counts = hist(d1[d1 > mean(d1)], breaks = 20, plot = FALSE)$counts
-    d1_above_thresh = h_midpoints[which.max(h_counts)]
+    d1_level_above_thresh = h_midpoints[which.max(h_counts)]
 
     # find the current where d1 is half of the avg above threshold value (that is
     # the definition of the first-derivative threshold current)
-    idx_min = which.min(abs(d1 - d1_above_thresh/2))
-    d1_points = d1[idx_min + -1:1]     # get closest point and nearest neighbors
-    I_points = I[idx_min + -1:1]       # get corresponding current points
-    Ith_1st_deriv = approx(d1_points, I_points, d1_above_thresh/2)$y
-    # looks pretty good!!
+    # idx_min = which.min(abs(d1 - d1_level_above_thresh/2))
+    # d1_points = d1[idx_min + -1:1]     # get closest point and nearest neighbors
+    # I_points = I[idx_min + -1:1]       # get corresponding current points
+    # Ith_1st_deriv = approx(d1_points, I_points, d1_level_above_thresh/2)$y
+
+    # get vector representing d1 - d1_level_above_thresh/2 zero crossings
+    zero_crossing = c(0, diff(sign( d1 - d1_level_above_thresh/2 )))
+
+    # get current at first upward zero crossing, and the index
+    first_upward_crossing = I[zero_crossing > 1][1]
+    if (is.na(first_upward_crossing)) {
+      Ith_1st_deriv = NA
+    } else {
+      idx = which(I == first_upward_crossing)
+      d1_points = d1[idx + -1:1]     # get closest point and nearest neighbors
+      I_points = I[idx + -1:1]       # get corresponding current points
+      Ith_1st_deriv = approx(d1_points, I_points, d1_level_above_thresh/2)$y
+    }
+
   }
 
 
   #### 2nd derivative method ####
   d2_rms = sqrt(mean(d2^2))
   pks = pracma::findpeaks(d2, minpeakheight = 2*d2_rms, sortstr = TRUE)
-  idx_pk = pks[1, 2]
+  # idx_pk = pks[1, 2]
+  idx_pk = min(pks[, 2])
 
   # if NULL was returned, set ITh_2nd_deriv to NA, else do quadratic fitting
   if ( is.null(pks) ) {
@@ -115,7 +128,7 @@ extract_ith_from_pi = function(I, P, n1_smooth = 1, n2_smooth = 1, n3_smooth = 1
 
     # 12
     plot(I, d1, type = "l")
-    abline(h = d1_above_thresh, col = "blue")
+    abline(h = d1_level_above_thresh, col = "blue")
     abline(v = Ith_1st_deriv, col = "blue")
     grid()
 

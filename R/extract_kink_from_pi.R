@@ -103,6 +103,17 @@ extract_kink_from_pi = function(I, P, Istart, Istop) {
   # print(paste("Ikink = ", Ikink/1e-3, "mA"))
   #
 
+  # check if Ikink or KINK are empty, assign NA if they are
+  if (identical(Ikink, numeric(0))) {
+    Ikink = NA
+  }
+  if (identical(KINK, numeric(0))) {
+    KINK = NA
+  }
+
+
+
+
   # return the results in a data frame
   return(
     data.frame(

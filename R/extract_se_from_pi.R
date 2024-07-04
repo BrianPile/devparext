@@ -17,12 +17,12 @@ extract_se_from_pi = function(I, P, I0, Ispan = 4e-3) {
   # stopifnot("I0 can not be missing value (NA)" = is.na(I0) == FALSE)
 
   if((is.na(I0) == TRUE)) {
-    print("Problem extracting SE (1) !!!")
+    # print("Problem extracting SE (1) !!!")
     SE = NA
     return(SE)
   }
   if(I0 >= max(I)) {
-    print("Problem extracting SE (2) I0 is greater than Imax!!!")
+    # print("Problem extracting SE (2) I0 is greater than Imax!!!")
     SE = NA
     return(SE)
   }
