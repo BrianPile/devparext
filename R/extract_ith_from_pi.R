@@ -92,13 +92,13 @@ extract_ith_from_pi = function(I, P, n1_smooth = 1, n2_smooth = 1, n3_smooth = 1
   #### 2nd derivative method ####
   d2_rms = sqrt(mean(d2^2))
   pks = pracma::findpeaks(d2, minpeakheight = 2*d2_rms, sortstr = TRUE)
-  # idx_pk = pks[1, 2]
-  idx_pk = min(pks[, 2])
 
   # if NULL was returned, set ITh_2nd_deriv to NA, else do quadratic fitting
   if ( is.null(pks) ) {
     Ith_2nd_deriv = NA
   } else {
+    idx_pk = min(pks[, 2])
+
     d2_points = d2[idx_pk + -1:1]
     I_points  = I[idx_pk + -1:1]
     I_points2  = I[idx_pk + -1:1]^2
