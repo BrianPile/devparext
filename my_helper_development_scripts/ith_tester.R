@@ -25,7 +25,7 @@ df_liv = read_csv(file = "./inst/extdata/HTOL28 problem liv/71634_10-23-54-89.cs
 
 # walk through the groups and view the ith algorithm internal data
 # variables
-n1_smooth = 1
+n1_smooth = 2
 n2_smooth = 9
 n3_smooth = 9
 
