@@ -1,4 +1,4 @@
-extract_kink_from_pi = function(I, P, Istart, Istop) {
+extract_kink_from_pi = function(I, P, Istart, Istop, plot_debug = FALSE) {
   # 2023-05-03 version update
 
   # check if Istart and Istop are valid
@@ -39,69 +39,74 @@ extract_kink_from_pi = function(I, P, Istart, Istop) {
   Ikink = Isub[which.max(abs(SE_diff_pcnt))]
   KINK = max(abs(SE_diff_pcnt)) * sign(SE_diff_pcnt[Isub == Ikink])
 
-  # # plots for debugging (comment this out when not in use)
-  # par(mfrow = c(2,2))
-  # plot(I /1e-3, P /1e-3,
-  #      type = "l",
-  #      main = basename(liv_file), cex.main = 0.7,
-  #      xlab = "Current (mA)",
-  #      ylab = "Power (mW)")
-  # grid()
-  #
-  # if (KINK > 20) {
-  #   abline(v = Ikink /1e-3,
-  #          lty = 3,
-  #          col = "red")
-  # }
-  #
-  # plot(I /1e-3, SE,
-  #      type = "l",
-  #      # ylim = c(-0.5, 0.65),
-  #      xlab = "Current (mA)",
-  #      main = basename(liv_file), cex.main = 0.7)
-  # grid()
-  #
-  # lines(Isub /1e-3, SEsub,
-  #       col = "red")
-  #
-  # lines(Isub / 1e-3, fitPoints,
-  #       col = "black")
-  #
-  # abline(v = Ikink /1e-3,
-  #        lty = 3)
-  #
-  # plot(Isub /1e-3, SE_diff,
-  #      type = "l")
-  # grid()
-  #
-  # abline(v = Ikink /1e-3,
-  #        lty = 3,
-  #        col = "red")
-  #
-  # plot(Isub /1e-3, SE_diff_pcnt,
-  #      type = "l",
-  #      ylim = c(-100, 100))
-  # grid()
-  #
-  # abline(v = Ikink /1e-3,
-  #        lty = 3,
-  #        col = "red")
-  #
-  # abline(h = 20,
-  #        lty = 3,
-  #        col = "red")
-  #
-  # abline(h = -20,
-  #        lty = 3,
-  #        col = "red")
-  #
-  # par(mfrow = c(1,1))
-  # ##
 
-  # print(paste("KINK =", round(KINK), "%"))
-  # print(paste("KINK2 =", round(KINK2), "%"))
-  # print(paste("Ikink = ", Ikink/1e-3, "mA"))
-  #
+  #### PLOTS
+  if (plot_debug) {
+    # plots for debugging (comment this out when not in use)
+    par(mfrow = c(2,2))
+    plot(I /1e-3, P /1e-3,
+         type = "l",
+         # main = basename(liv_file), cex.main = 0.7,
+         xlab = "Current (mA)",
+         ylab = "Power (mW)")
+    grid()
+
+    if (KINK > 20) {
+      abline(v = Ikink /1e-3,
+             lty = 3,
+             col = "red")
+    }
+
+    plot(I /1e-3, SE,
+         type = "l",
+         # ylim = c(-0.5, 0.65),
+         xlab = "Current (mA)")
+         # main = basename(liv_file), cex.main = 0.7)
+    grid()
+
+    lines(Isub /1e-3, SEsub,
+          col = "red")
+
+    lines(Isub / 1e-3, fitPoints,
+          col = "black")
+
+    abline(v = Ikink /1e-3,
+           lty = 3)
+
+    plot(Isub /1e-3, SE_diff,
+         type = "l")
+    grid()
+
+    abline(v = Ikink /1e-3,
+           lty = 3,
+           col = "red")
+
+    plot(Isub /1e-3, SE_diff_pcnt,
+         type = "l",
+         ylim = c(-100, 100))
+    grid()
+
+    abline(v = Ikink /1e-3,
+           lty = 3,
+           col = "red")
+
+    abline(h = 20,
+           lty = 3,
+           col = "red")
+
+    abline(h = -20,
+           lty = 3,
+           col = "red")
+
+    par(mfrow = c(1,1))
+    ##
+
+    # print(paste("KINK =", round(KINK), "%"))
+    # print(paste("KINK2 =", round(KINK2), "%"))
+    # print(paste("Ikink = ", Ikink/1e-3, "mA"))
+    #
+    invisible(readline(prompt = "press [enter] to continue: "))
+  }
 
   # check if Ikink or KINK are empty, assign NA if they are
   if (identical(Ikink, numeric(0))) {
