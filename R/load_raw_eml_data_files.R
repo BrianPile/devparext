@@ -9,7 +9,9 @@
 #'
 #' @examples
 load_raw_eml_data_files = function(paths, pattern = "-EML.csv") {
-  eml_id = NULL # due to NSE notes in R CMD check related to data.table
+  # due to (non standard evaluation) NSE notes in R CMD check related to
+  # data.table
+  eml_id = NULL
 
   list_of_files = list.files(path = paths,
                              full.names = TRUE,
@@ -19,7 +21,7 @@ load_raw_eml_data_files = function(paths, pattern = "-EML.csv") {
     purrr::set_names() |>
     purrr::map(\(x) data.table::fread(x)) |>
     purrr::list_rbind(names_to = "file_name") |>
-    dplyr::mutate(testDate = file.info(.data$file_name)$ctime, .before = "file_name")
+    dplyr::mutate(test_date_eml = file.info(.data$file_name)$ctime, .before = "file_name")
 
   df_eml = df_eml0 |>
     dplyr::rename(voltage = .data$`voltage[V]`, power = .data$`power[mW]`, current = .data$`current[mA]`) |>
