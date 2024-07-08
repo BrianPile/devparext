@@ -4,7 +4,7 @@
 \alias{load_raw_liv_data_files}
 \title{Load many raw LIV data files into a data frame}
 \usage{
-load_raw_liv_data_files(paths, pattern = "-LIV.csv")
+load_raw_liv_data_files(paths, pattern = "-LIV\\\\.csv")
 }
 \arguments{
 \item{paths}{The file path(s) to folder(s) containing the csv files}

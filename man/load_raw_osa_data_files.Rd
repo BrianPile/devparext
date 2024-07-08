@@ -4,7 +4,7 @@
 \alias{load_raw_osa_data_files}
 \title{Load many raw LIV data files into a data frame}
 \usage{
-load_raw_osa_data_files(paths, pattern = "-OSA.csv$")
+load_raw_osa_data_files(paths, pattern = "-OSA\\\\.csv$")
 }
 \arguments{
 \item{paths}{The file path(s) to folder(s) containing the csv files}

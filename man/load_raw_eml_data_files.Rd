@@ -4,7 +4,7 @@
 \alias{load_raw_eml_data_files}
 \title{Load many raw EAM data files into a data frame}
 \usage{
-load_raw_eml_data_files(paths, pattern = "-EML.csv")
+load_raw_eml_data_files(paths, pattern = "-EML\\\\.csv")
 }
 \arguments{
 \item{paths}{The file path(s) to folder(s) containing the csv files}

@@ -2,6 +2,7 @@
 
 export(extract_bw20dB)
 export(extract_eml_dcer)
+export(extract_eml_dpdv_max)
 export(extract_eml_pf)
 export(extract_eml_rphoto)
 export(extract_eml_vop)

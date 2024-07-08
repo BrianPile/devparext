@@ -9,7 +9,7 @@ extract_eml_pf(voltage, power, V0 = 0)
 \arguments{
 \item{voltage}{A numeric vector of source voltages}
 
-\item{power}{A nueric vector of measured optical powers}
+\item{power}{A numeric vector of measured optical powers}
 
 \item{V0}{A numeric value of modulator bias voltage}
 }
