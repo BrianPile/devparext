@@ -8,7 +8,7 @@
 #' @importFrom rlang .data
 #'
 #' @examples
-load_raw_osa_data_files = function(paths, pattern = "-OSA.csv$") {
+load_raw_osa_data_files = function(paths, pattern = "-OSA\\.csv$") {
   osa_id = NULL # due to NSE notes in R CMD check related to data.table
 
   osa_file_paths = paths
