@@ -1,5 +1,20 @@
+#' Extract kink deviation from P-I curve
+#'
+#' @param I a numeric vector of sourced current values
+#' @param P a numeric vector of measured output powers
+#' @param Istart a numeric value for the beginning of the current span to check
+#' @param Istop a numeric value for the end of the current span to check
+#' @param plot_debug a logical value to enable plot debug mode
+#'
+#' @return a data frame
+#' @export
+#'
+#' @examples
 extract_kink_from_pi = function(I, P, Istart, Istop, plot_debug = FALSE) {
-  # 2023-05-03 version update
+
+  # level1 smoothing
+  n1_smooth = 5
+  P = my_smooth(P, n1_smooth)
 
   # check if Istart and Istop are valid
   if (is.na(Istart) | is.na(Istop)) {
@@ -10,9 +25,11 @@ extract_kink_from_pi = function(I, P, Istart, Istop, plot_debug = FALSE) {
       ))
   }
 
-  # Isub = I[between(I, Istart, Istop)]
+  # subset the current values
   Isub = I[I >= Istart & I <= Istop]
-  if (pracma::isempty(Isub)) {
+
+  # if the subset is empty return NA's
+  if (identical(Isub, integer(0))) {
     return(
       data.frame(
         "KINK" = NA,
@@ -20,9 +37,9 @@ extract_kink_from_pi = function(I, P, Istart, Istop, plot_debug = FALSE) {
       ))
   }
 
+  # quadratic fitting
   Isub_squared = Isub^2
   SE = my_derivative(I, P)
-  # SEsub = SE[between(I, Istart, Istop)]
   SEsub = SE[I >= Istart & I <= Istop]
 
   quadraticModel = stats::lm(SEsub ~ Isub + Isub_squared)
@@ -31,19 +48,23 @@ extract_kink_from_pi = function(I, P, Istart, Istop, plot_debug = FALSE) {
   a = stats::coefficients(quadraticModel)["Isub_squared"]
   fitPoints = a*Isub^2 + b*Isub + c
 
+  # calculate differences between fit and data
   SE_diff = SEsub - fitPoints
   SE_diff_pcnt = 100*(SEsub - fitPoints)/c # this is normalized to y-intercept of quadratic fit
   SE_diff_min = min(SE_diff)
   SE_diff_max = max(SE_diff)
 
+  # calculate kink parameters
   Ikink = Isub[which.max(abs(SE_diff_pcnt))]
   KINK = max(abs(SE_diff_pcnt)) * sign(SE_diff_pcnt[Isub == Ikink])
 
 
-  #### PLOTS
+  # DEBUG PLOTS
   if (plot_debug) {
-    # plots for debugging (comment this out when not in use)
     par(mfrow = c(2,2))
+    par(mar = c(4, 4, 1.5, 0.5))
+
+    # 11
     plot(I /1e-3, P /1e-3,
          type = "l",
          # main = basename(liv_file), cex.main = 0.7,
@@ -51,62 +72,49 @@ extract_kink_from_pi = function(I, P, Istart, Istop, plot_debug = FALSE) {
          ylab = "Power (mW)")
     grid()
 
-    if (KINK > 20) {
-      abline(v = Ikink /1e-3,
-             lty = 3,
-             col = "red")
+    if (abs(KINK) > 20) {
+      abline(v = Ikink /1e-3, lty = "dotted", col = "red")
     }
 
+    # 12
     plot(I /1e-3, SE,
          type = "l",
          # ylim = c(-0.5, 0.65),
          xlab = "Current (mA)")
-         # main = basename(liv_file), cex.main = 0.7)
     grid()
 
-    lines(Isub /1e-3, SEsub,
-          col = "red")
+    lines(Isub /1e-3, SEsub, col = "red")
+    lines(Isub / 1e-3, fitPoints, col = "green")
+    lines(Isub / 1e-3, fitPoints + 0.2*c, col = "green", lty = "dashed")
+    lines(Isub / 1e-3, fitPoints - 0.2*c, col = "green", lty = "dashed")
 
-    lines(Isub / 1e-3, fitPoints,
-          col = "black")
+    if (abs(KINK) > 20) {
+      abline(v = Ikink /1e-3, lty = "dotted", col = "red")
+    }
 
-    abline(v = Ikink /1e-3,
-           lty = 3)
-
+    # 21
     plot(Isub /1e-3, SE_diff,
          type = "l")
     grid()
 
-    abline(v = Ikink /1e-3,
-           lty = 3,
-           col = "red")
+    abline(v = Ikink /1e-3, lty = "dotted", col = "red")
 
-    plot(Isub /1e-3, SE_diff_pcnt,
-         type = "l",
-         ylim = c(-100, 100))
+    # 22
+    plot(Isub /1e-3, SE_diff_pcnt, type = "l", ylim = c(-100, 100))
     grid()
 
-    abline(v = Ikink /1e-3,
-           lty = 3,
-           col = "red")
-
-    abline(h = 20,
-           lty = 3,
-           col = "red")
-
-    abline(h = -20,
-           lty = 3,
-           col = "red")
+    abline(v = Ikink /1e-3, lty = 3, col = "red")
+    abline(h = 20, lty = "dashed", col = "green")
+    abline(h = -20, lty = "dashed", col = "green")
 
     par(mfrow = c(1,1))
     ##
 
-    # print(paste("KINK =", round(KINK), "%"))
-    # print(paste("KINK2 =", round(KINK2), "%"))
-    # print(paste("Ikink = ", Ikink/1e-3, "mA"))
-    #
+    print(paste("KINK =", round(KINK), "%"))
+    print(paste("Ikink = ", Ikink/1e-3, "mA"))
     invisible(readline(prompt = "press [enter] to continue: "))
   }
+  # end plot debug
 
   # check if Ikink or KINK are empty, assign NA if they are
   if (identical(Ikink, numeric(0))) {
@@ -117,10 +125,5 @@ extract_kink_from_pi = function(I, P, Istart, Istop, plot_debug = FALSE) {
   }
 
   # return the results in a data frame
-  return(
-    data.frame(
-      "KINK" = KINK,
-      "Ikink" = Ikink
-    )
-  )
+  return(data.frame("KINK" = KINK, "Ikink" = Ikink))
 }

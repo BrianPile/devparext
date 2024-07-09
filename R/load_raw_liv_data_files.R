@@ -25,6 +25,12 @@ load_raw_liv_data_files = function(paths, pattern = "-LIV\\.csv") {
     purrr::list_rbind(names_to = "file_name") |>
     dplyr::mutate(test_date_liv = file.info(.data$file_name)$ctime, .before = "file_name")
 
+
+  # add a dummy mpd_current column if needed
+  if (! "mpd_current[mA]" %in% colnames(df_liv0)) {
+    df_liv0["mpd_current[mA]"] = 0
+  }
+
   # massage liv data
   df_liv = df_liv0  |>
     dplyr::mutate(liv_id = basename(.data$file_name), .before = "file_name") |> # create temporary liv_id column
