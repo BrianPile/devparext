@@ -83,10 +83,10 @@ extract_kink_from_pi = function(I, P, Istart, Istop, plot_debug = FALSE) {
          xlab = "Current (mA)")
     grid()
 
-    lines(Isub /1e-3, SEsub, col = "red")
-    lines(Isub / 1e-3, fitPoints, col = "green")
-    lines(Isub / 1e-3, fitPoints + 0.2*c, col = "green", lty = "dashed")
-    lines(Isub / 1e-3, fitPoints - 0.2*c, col = "green", lty = "dashed")
+    graphics::lines(Isub /1e-3, SEsub, col = "red")
+    graphics::lines(Isub / 1e-3, fitPoints, col = "green")
+    graphics::lines(Isub / 1e-3, fitPoints + 0.2*c, col = "green", lty = "dashed")
+    graphics::lines(Isub / 1e-3, fitPoints - 0.2*c, col = "green", lty = "dashed")
 
     if (abs(KINK) > 20) {
       abline(v = Ikink /1e-3, lty = "dotted", col = "red")

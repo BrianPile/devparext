@@ -1,7 +1,10 @@
 
-df_liv = readr::read_csv(file = "./inst/extdata/ith_problem_data/HTOL18 71026[10]-21-K-10.csv")
+library(tidyverse)
+
+load("/Users/brianpile/POET Technologies Dropbox/Brian Pile/Allentown Lab/Work Orders/WA24-0014/analysis/raw_data.RData")
 
 
-df_liv |>
-  dplyr::summarize(Ith = extract_ith_from_pi(current, pd_current, method = "second_derivative", n2_smooth = 9, n3_smooth = 9))
-
+df_summary_eml = df_eml |>
+  group_by(across(-c(voltage:static_ER_dB))) |>
+  summarize_raw_eml_data() |>
+  ungroup()
