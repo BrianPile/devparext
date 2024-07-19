@@ -1,10 +1,12 @@
 
-library(tidyverse)
+x = -20:20
+n = rnorm(length(x), mean = 0, sd = 5)
+y = 5*x + 3 + n
 
-load("/Users/brianpile/POET Technologies Dropbox/Brian Pile/Allentown Lab/Work Orders/WA24-0014/analysis/raw_data.RData")
+df = my_linear_fit(x, y)
 
+plot(x, y, type = "p")
 
-df_summary_eml = df_eml |>
-  group_by(across(-c(voltage:static_ER_dB))) |>
-  summarize_raw_eml_data() |>
-  ungroup()
+abline(a = df$b, b = df$m)
+
+print(df)
