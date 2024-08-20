@@ -7,10 +7,10 @@
 #' @param Ik1 A numeric value for the start of the kink analysis span (mA)
 #' @param Ik2 A numeric value for the end of the kink analysis span (mA)
 #' @param n1_smooth P-I smooth span
-#' @param n2_smooth P-I first-derivative smooth span
-#' @param n3_smooth P-I second_derivative smooth span
+#' @param n2_smooth P-I first-derivative smooth span for Ith calculation
+#' @param n3_smooth P-I second_derivative smooth span for Ith calculation
 #'
-#' @return A data frame containing parametric data
+#' @return A data frame containing LIV-extracted parametric data
 #' @export
 #'
 #' @examples
