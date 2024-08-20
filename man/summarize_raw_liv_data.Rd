@@ -31,12 +31,12 @@ summarize_raw_liv_data(
 
 \item{n1_smooth}{P-I smooth span}
 
-\item{n2_smooth}{P-I first-derivative smooth span}
+\item{n2_smooth}{P-I first-derivative smooth span for Ith calculation}
 
-\item{n3_smooth}{P-I second_derivative smooth span}
+\item{n3_smooth}{P-I second_derivative smooth span for Ith calculation}
 }
 \value{
-A data frame containing parametric data
+A data frame containing LIV-extracted parametric data
 }
 \description{
 Create parametric data summary from LIV sweeps
