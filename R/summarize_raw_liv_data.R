@@ -25,6 +25,8 @@ summarize_raw_liv_data = function(df_liv, If_vec, Ix_vec, Pop_vec, Ik1 = 30, Ik2
       n1_smooth = n1_smooth,
       n2_smooth = n2_smooth,
       n3_smooth = n3_smooth,
+      Ik1 = Ik1,
+      Ik2 = Ik2,
       Ith1d = extract_ith_from_pi(.data$current, .data$power, n1_smooth, n2_smooth)[[1]] / 1e-3,
       Ith2d = extract_ith_from_pi(.data$current, .data$power, n1_smooth, n2_smooth, n3_smooth)[[2]] / 1e-3 ,
       Pth = extract_pf_from_pi(.data$current, .data$power_sm, I0 = .data$Ith1d*1e-3) /1e-3,
@@ -32,8 +34,6 @@ summarize_raw_liv_data = function(df_liv, If_vec, Ix_vec, Pop_vec, Ik1 = 30, Ik2
       Rdth = extract_rs_from_vi(.data$current, .data$voltage, I0 = .data$Ith1d*1e-3),
       Pmax = base::max(.data$power_sm, na.rm = TRUE) / 1e-3,
       Isat = extract_isat_from_pi(.data$current, .data$power) / 1e-3,
-      Ik1 = Ik1,
-      Ik2 = Ik2,
       df_kink = extract_kink_from_pi(.data$current, .data$power, Istart = Ik1*1e-3, Istop = Ik2*1e-3)
     ) |>
     tidyr::unpack(cols = .data$df_kink) |>
