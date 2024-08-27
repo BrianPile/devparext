@@ -1,4 +1,4 @@
-#' Interpolate maximum value of x-y data
+#' Interpolate maximum value of x-y data and return x-valu
 #'
 #' @param x a numeric vector
 #' @param y a numeric vector
@@ -30,18 +30,22 @@ interp_max = function(x, y) {
   x_points = x[idx_max + -1:1]
   y_points = y[idx_max + -1:1]
   fit_quad = stats::lm(y_points ~ x_points + I(x_points^2)) # create quadratic fit model
-  p = unname(stats::coef(fit_quad)) # get the polynomial coefficients
-  a = p[1]
-  b = p[2]
-  c = p[3]
+  a = coef(fit_quad)[[3]]
+  b = coef(fit_quad)[[2]]
+  c = coef(fit_quad)[[1]]
 
   # interpolate the maximum value by finding the vertex x-coordinate
   x_interp_max = -b/2/a
 
-  # # plot to check
-  # plot(x, y, type = "l")
-  # new_x = seq(1, 5, length.out = 100)
-  # graphics::lines(new_x, stats::predict(fit_quad, data.frame(x_points = new_x)), col = "red")
+  # plot to check
+  plot(x, y, type = "l")
+  grid()
+  points(x_points, y_points)
+  lines(x_points, predict(fit_quad, data.frame(x = x_points)), col = "green")
+  points(x_points, a*x_points^2 + b*x_points + c, col = "purple")
+  abline(v = x_interp_max, col = "red")
+
+  # invisible(readline(prompt = "press [enter] to continue: "))
 
   return(x_interp_max)
 }
