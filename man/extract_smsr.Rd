@@ -4,7 +4,7 @@
 \alias{extract_smsr}
 \title{Extract side mode suppresion ratio from spectrum data}
 \usage{
-extract_smsr(wav, power, smooth_fraction = 0)
+extract_smsr(wav, power, smooth_fraction = 0, plot_debug = FALSE)
 }
 \arguments{
 \item{wav}{A vector of spectrum wavelength data}
@@ -14,6 +14,8 @@ extract_smsr(wav, power, smooth_fraction = 0)
 \item{smooth_fraction}{A parameter for smoothing the power data.
 smooth_fraction = smooth_points/total_points. smooth_fraction > 0.003 is not
 recommended.}
+
+\item{plot_debug}{A boolean indicating if function should run in graphical debug mode}
 }
 \value{
 A numeric value

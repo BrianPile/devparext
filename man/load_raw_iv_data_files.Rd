@@ -2,7 +2,7 @@
 % Please edit documentation in R/load_raw_iv_data_files.R
 \name{load_raw_iv_data_files}
 \alias{load_raw_iv_data_files}
-\title{Load many raw IV data files into a data frame}
+\title{Load many raw IV data files into a data frame (delete this text)}
 \usage{
 load_raw_iv_data_files(paths, pattern = "-IV\\\\.csv$")
 }
@@ -15,5 +15,5 @@ load_raw_iv_data_files(paths, pattern = "-IV\\\\.csv$")
 A data frame with all the rows of data combined
 }
 \description{
-Load many raw IV data files into a data frame
+Load many raw IV data files into a data frame (delete this text)
 }

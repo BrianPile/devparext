@@ -5,6 +5,7 @@
 #' @param smooth_fraction A parameter for smoothing the power data.
 #' smooth_fraction = smooth_points/total_points. smooth_fraction > 0.003 is not
 #' recommended.
+#' @param plot_debug A boolean indicating if function should run in graphical debug mode
 #'
 #' @return A numeric value
 #' @export
@@ -62,17 +63,17 @@ extract_smsr = function(wav, power, smooth_fraction = 0, plot_debug = FALSE) {
     idx1 = pks[1,3]:pks[1,4]
     idx2 = pks[2,3]:pks[2,4]
 
-    lines(wav[idx1], power[idx1], col = "green")
-    lines(wav[idx2], power[idx2], col = "red")
+    graphics::lines(wav[idx1], power[idx1], col = "green")
+    graphics::lines(wav[idx2], power[idx2], col = "red")
 
-    abline(h = pks[1,1], col = "green", lty = 3)
-    abline(h = pks[2,1], col = "red", lty = 3)
+    graphics::abline(h = pks[1,1], col = "green", lty = 3)
+    graphics::abline(h = pks[2,1], col = "red", lty = 3)
 
-    arrows(x0 = Lp-5+2, y0 = pks[2,1],
+    graphics::arrows(x0 = Lp-5+2, y0 = pks[2,1],
            x1 = Lp-5+2, y1 = pks[1,1],
            code = 2, length = 0.1)
 
-    text(Lp-5+2, pks[2,1]+5,
+    graphics::text(Lp-5+2, pks[2,1]+5,
          paste0("SMSR=", round(SMSR, 1), "dB"),
          adj = 0)
 
