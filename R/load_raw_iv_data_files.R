@@ -1,4 +1,4 @@
-#' Load many raw IV data files into a data frame
+#' Load many raw IV data files into a data frame (delete this text)
 #'
 #' @param paths The file path(s) to folder(s) containing the csv files
 #' @param pattern A pattern to match certain file names
