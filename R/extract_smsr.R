@@ -16,7 +16,7 @@
 #' pow[50:52] = c(-40, -38, -40)
 #' smsr = extract_smsr(wav, pow)
 #' print(smsr)
-extract_smsr = function(wav, power, smooth_fraction = 0) {
+extract_smsr = function(wav, power, smooth_fraction = 0, plot_debug = FALSE) {
   # 2024-01-23 Added smooth_fraction parameter with default value 0. If
   # smooth_fraction is not equal to zero, the power data is smoothed by a number
   # of points equal to the total data points multiplied by smooth_fraction,
