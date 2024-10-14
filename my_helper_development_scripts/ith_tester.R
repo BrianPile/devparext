@@ -35,11 +35,6 @@ n2_smooth = 3
 n3_smooth = 3
 
 df_liv |>
-  # filter(SN %in% sn_Ith1d_probs) |>
-  filter(SN == "24FC00275-T14-NA-NA",
-         testID == "00_Vea=RF_OUT_driver_on",
-         tempC == 75) |>
-  # group_by(SN) |>
   group_by(across(-c(current:dVdI))) |>
   group_walk( ~ graphical_debug_ith(
     .x$current, .x$power, .y,
