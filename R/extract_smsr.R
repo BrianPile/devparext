@@ -16,7 +16,7 @@
 #' pow[50:52] = c(-40, -38, -40)
 #' smsr = extract_smsr(wav, pow)
 #' print(smsr)
-extract_smsr = function(wav, power, smooth_fraction = 0) {
+extract_smsr = function(wav, power, smooth_fraction = 0, plot_debug = FALSE) {
   # 2024-01-23 Added smooth_fraction parameter with default value 0. If
   # smooth_fraction is not equal to zero, the power data is smoothed by a number
   # of points equal to the total data points multiplied by smooth_fraction,
@@ -49,4 +49,39 @@ extract_smsr = function(wav, power, smooth_fraction = 0) {
   }
 
   SMSR = pks[1, 1] - pks[2, 1]
+
+  if (plot_debug == TRUE) {
+    Lp = wav[pks[1, 2]]
+
+    plot(wav, power, type = "l",
+         xlim = Lp + c(-3, 3),
+         ylim = c(-80, 20),
+    )
+    grid()
+
+    idx1 = pks[1,3]:pks[1,4]
+    idx2 = pks[2,3]:pks[2,4]
+
+    lines(wav[idx1], power[idx1], col = "green")
+    lines(wav[idx2], power[idx2], col = "red")
+
+    abline(h = pks[1,1], col = "green", lty = 3)
+    abline(h = pks[2,1], col = "red", lty = 3)
+
+    arrows(x0 = Lp-5+2, y0 = pks[2,1],
+           x1 = Lp-5+2, y1 = pks[1,1],
+           code = 2, length = 0.1)
+
+    text(Lp-5+2, pks[2,1]+5,
+         paste0("SMSR=", round(SMSR, 1), "dB"),
+         adj = 0)
+
+
+    readline(prompt="Press [enter] to continue, or [esc] to quit:")
+  }
+
+
+
+
+  return(SMSR)
 }
