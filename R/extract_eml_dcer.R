@@ -10,7 +10,7 @@
 #' @return A numeric value DCER = 10*log10(P0/P1)
 #' @export
 #'
-#' @examples
+# @examples
 extract_eml_dcer = function(voltage, power, V0 = 0, V1 = -1.0) {
   p0 = stats::approx(voltage, power, V0)$y
   p1 = stats::approx(voltage, power, V1)$y
