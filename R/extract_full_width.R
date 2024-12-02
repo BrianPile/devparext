@@ -52,8 +52,7 @@ extract_full_width = function(x, y, threshold = -20, plot_debug = FALSE) {
 
   if (plot_debug == TRUE) {
     plot(x, y_norm, type = "l",
-         xlim = peak_x + 5*c(-full_width, full_width),
-         ylim = c(-70, 10))
+         xlim = peak_x + 5*c(-full_width, full_width))
     grid()
     abline(h = threshold, col = "red")
     abline(v = left_x, col = "red")
