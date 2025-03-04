@@ -56,7 +56,7 @@ extract_smsr = function(wav, power, smooth_fraction = 0, plot_debug = FALSE) {
 
     plot(wav, power, type = "l",
          xlim = Lp + c(-3, 3),
-         ylim = c(-80, 20),
+         ylim = c(-100, 20),
     )
     grid()
 
