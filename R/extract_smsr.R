@@ -3,9 +3,11 @@
 #' @param wav A vector of spectrum wavelength data
 #' @param power A vector of spectrum power data
 #' @param smooth_fraction A parameter for smoothing the power data.
-#' smooth_fraction = smooth_points/total_points. smooth_fraction > 0.003 is not
-#' recommended.
-#' @param plot_debug A boolean indicating if function should run in graphical debug mode
+#'   smooth_fraction = smooth_points/total_points. smooth_fraction > 0.003 is
+#'   not recommended.
+#' @param plot_debug A boolean indicating if function should run in graphical
+#'   debug mode
+#' @param plot_title A string for the plot title
 #'
 #' @return A numeric value
 #' @export
