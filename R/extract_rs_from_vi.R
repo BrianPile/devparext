@@ -25,7 +25,8 @@ extract_rs_from_vi = function(I, V, I0, Ispan = 4*1e-3) {
   if (is.na(I0) == TRUE) {
     return(NA)
   }
-  if (I0 > max(I)) {
+  if (I0 >= max(I) | I0 <= min(I)) {
+    warning("I0 is not with in the range of currents")
     return(NA)
   }
 
