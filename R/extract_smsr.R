@@ -83,9 +83,9 @@ extract_smsr = function(wav, power, smooth_fraction = 0, plot_debug = FALSE, plo
     # commenting this out: try to use wrapper functions instead in external
     # scripts/functions for pausing. (hint: make a function with call to
     # extract_smsr then pause. walk over the groups of OSA data after feeding
-    # walk with group_split.)
+    # walk with group_split.) - NOPE not doing that for now
 
-    # readline(prompt="Press [enter] to continue, or [esc] to quit:")
+    readline(prompt="Press [enter] to continue, or [esc] to quit:")
   }
 
 
