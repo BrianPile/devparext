@@ -36,5 +36,12 @@ extract_pf_from_pi = function(I, P, I0) {
     return(NA)
   }
 
+  if (sum(!is.na(P)) < 2) {
+    message("Need at least two non-NA values to interpolate!!! Returning NA!!!")
+    return(NA)
+  }
+
   Pf = stats::approx(I, P, I0)$y
+
+  return(Pf)
 }
