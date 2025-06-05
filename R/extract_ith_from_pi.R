@@ -19,7 +19,8 @@ extract_ith_from_pi = function(I, P, n1_smooth = 1, n2_smooth = 1, n3_smooth = 1
 
   # check the data for NA, error if found
   if (any(is.na(c(I, P)))) {
-    stop("NA's found in current or power!")
+    message("NA's found in current or power! Returning NA!!!")
+    return(NA)
   }
 
   # remove duplicated data
