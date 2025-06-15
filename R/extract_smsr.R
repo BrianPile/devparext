@@ -37,10 +37,10 @@ extract_smsr = function(wav, power, smooth_fraction = 0, plot_debug = FALSE, plo
 
   pks = pracma::findpeaks(power,
                   npeaks = 2,
-                  nups = 2,
-                  ndowns = 2,
+                  nups = 1,
+                  ndowns = 1,
                   zero = "+",
-                  minpeakdistance = 2,
+                  minpeakdistance = 3,
                   sortstr = TRUE)
 
   # check that at least two peaks were found
@@ -56,9 +56,13 @@ extract_smsr = function(wav, power, smooth_fraction = 0, plot_debug = FALSE, plo
   if (plot_debug == TRUE) {
     Lp = wav[pks[1, 2]]
 
+    # Set up the plotting area to have 2 plots
+    par(mfrow = c(1, 2))
+
+    # first plot
     plot(wav, power, type = "l",
-         xlim = Lp + c(-3, 3),
-         ylim = c(-100, 20),
+         # xlim = Lp + c(-20, 20),
+         ylim = c(-100, max(power) + 10),
          main = plot_title
     )
     grid()
@@ -79,6 +83,31 @@ extract_smsr = function(wav, power, smooth_fraction = 0, plot_debug = FALSE, plo
     graphics::text(Lp-5+2, pks[2,1]+5,
          paste0("SMSR=", round(SMSR, 1), "dB"),
          adj = 0)
+
+    # second plot
+    plot(wav, power, type = "l",
+         xlim = Lp + c(-3, 3),
+         ylim = c(-100, max(power) + 10),
+         main = plot_title
+    )
+    grid()
+
+    idx1 = pks[1,3]:pks[1,4]
+    idx2 = pks[2,3]:pks[2,4]
+
+    graphics::lines(wav[idx1], power[idx1], col = "green")
+    graphics::lines(wav[idx2], power[idx2], col = "red")
+
+    graphics::abline(h = pks[1,1], col = "green", lty = 3)
+    graphics::abline(h = pks[2,1], col = "red", lty = 3)
+
+    graphics::arrows(x0 = Lp-5+2, y0 = pks[2,1],
+                     x1 = Lp-5+2, y1 = pks[1,1],
+                     code = 2, length = 0.1)
+
+    graphics::text(Lp-5+2, pks[2,1]+5,
+                   paste0("SMSR=", round(SMSR, 1), "dB"),
+                   adj = 0)
 
     # commenting this out: try to use wrapper functions instead in external
     # scripts/functions for pausing. (hint: make a function with call to
