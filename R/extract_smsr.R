@@ -29,32 +29,50 @@ extract_smsr = function(wav, power, smooth_fraction = 0, plot_debug = FALSE, plo
     warning("extract_smsr() paramter value: smooth_fraction > 0.003 is not reccomended by Brian!!!")
   }
 
+  noise_floor = quantile(power, 0.98)
+  SNR = max(power) - noise_floor
+
   if (smooth_fraction != 0) {
     npoints = length(wav)
     npoints_smooth = round(npoints * smooth_fraction)
     power = my_smooth(power, npoints_smooth)
   }
 
+  # pks = pracma::findpeaks(power,
+  #                         npeaks = 2,
+  #                         nups = 2,
+  #                         ndowns = 2,
+  #                         zero = "+",
+  #                         minpeakdistance = 2,
+  #                         sortstr = TRUE)
+
   pks = pracma::findpeaks(power,
-                  npeaks = 2,
-                  nups = 2,
-                  ndowns = 2,
-                  zero = "+",
-                  minpeakdistance = 2,
-                  sortstr = TRUE)
+                          npeaks = 2,
+                          nups = 1,
+                          ndowns = 1,
+                          zero = "+",
+                          minpeakdistance = 3,
+                          sortstr = TRUE)
 
   # check that at least two peaks were found
   if (is.null(pks)) {
+    warning("pks is NULL, returning NA")
     return(NA)
   }
   if (nrow(pks) < 2) {
+    warning("less than two peaks were found, returning NA")
     return(NA)
   }
 
   SMSR = pks[1, 1] - pks[2, 1]
 
+
+
   if (plot_debug == TRUE) {
     Lp = wav[pks[1, 2]]
+
+    message("SMSR (dB): ", SMSR)
+    message("SNR  (dB): ", SNR)
 
     # Set up the plotting area to have 2 plots
     par(mfrow = c(1, 2))
@@ -77,12 +95,15 @@ extract_smsr = function(wav, power, smooth_fraction = 0, plot_debug = FALSE, plo
     graphics::abline(h = pks[2,1], col = "red", lty = 3)
 
     graphics::arrows(x0 = Lp-5+2, y0 = pks[2,1],
-           x1 = Lp-5+2, y1 = pks[1,1],
-           code = 2, length = 0.1)
+                     x1 = Lp-5+2, y1 = pks[1,1],
+                     code = 2, length = 0.1)
 
     graphics::text(Lp-5+2, pks[2,1]+5,
-         paste0("SMSR=", round(SMSR, 1), "dB"),
-         adj = 0)
+                   paste0("SMSR=", round(SMSR, 1), "dB"),
+                   adj = 0)
+
+    # draw a line at the "noise floor"
+    graphics::abline(h = noise_floor, col = "blue", lty = 1)
 
     # second plot
     plot(wav, power, type = "l",
@@ -108,6 +129,9 @@ extract_smsr = function(wav, power, smooth_fraction = 0, plot_debug = FALSE, plo
     graphics::text(Lp-5+2, pks[2,1]+5,
                    paste0("SMSR=", round(SMSR, 1), "dB"),
                    adj = 0)
+
+    # draw a line at the "noise floor"
+    graphics::abline(h = noise_floor, col = "blue", lty = 1)
 
     # commenting this out: try to use wrapper functions instead in external
     # scripts/functions for pausing. (hint: make a function with call to
