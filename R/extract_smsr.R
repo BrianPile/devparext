@@ -37,10 +37,10 @@ extract_smsr = function(wav, power, smooth_fraction = 0, plot_debug = FALSE, plo
 
   pks = pracma::findpeaks(power,
                   npeaks = 2,
-                  nups = 1,
-                  ndowns = 1,
+                  nups = 2,
+                  ndowns = 2,
                   zero = "+",
-                  minpeakdistance = 3,
+                  minpeakdistance = 2,
                   sortstr = TRUE)
 
   # check that at least two peaks were found

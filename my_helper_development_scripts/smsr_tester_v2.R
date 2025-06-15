@@ -3,7 +3,7 @@ library(tidyverse)
 library(here)
 
 
-input_data_path = here("inst/extdata/sivers P11032 problem SMSR")
+input_data_path = here("local-private-data/sivers P11032 problem SMSR")
 
 osa_files = list.files(
   path = input_data_path,
@@ -18,7 +18,7 @@ df_osa = osa_files |>
   as_tibble()
 
 df_osa |>
-  # filter(If == 400e-3) |>
+  filter(If == 400e-3) |>
   group_by(across(-c(wavelength, power))) |>
   summarize(
     SMSR = extract_smsr(wavelength, power, plot_debug = TRUE, plot_title = paste(sep = "-", unique(SN), unique(If)))
