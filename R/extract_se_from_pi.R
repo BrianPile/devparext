@@ -21,6 +21,13 @@ extract_se_from_pi = function(I, P, I0, Ispan = 4e-3) {
     SE = NA
     return(SE)
   }
+
+  # check if all currents are NA
+  if(all(is.na(I))) {
+    warning("All I values are NA, returning NA")
+    return(NA)
+  }
+
   if(I0 >= max(I) | I0 <= min(I)) {
     # print("Problem extracting SE (2) I0 is greater than Imax!!!")
     warning("I0 is not with in the range of currents")

@@ -9,6 +9,11 @@
 #' @examples
 extract_isat_from_pi = function(I, P) {
 
+  if (all(is.na(I))) {
+    warning("All I values were NA, returning NA")
+    return(NA)
+  }
+
   idx_Pmax = which.max(P)
   Isat0 = I[idx_Pmax]
 

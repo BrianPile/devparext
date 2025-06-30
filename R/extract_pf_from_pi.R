@@ -19,13 +19,20 @@ extract_pf_from_pi = function(I, P, I0) {
   #   "current and power vectors must have length greater than 1" = length(I) > 1 & length(P) > 1
   # )
 
+  # return NA in some cases
+
   # check if I0 is NA
   if (is.na(I0)) {
     # warning("extract_pf_from_pi: I0 is NA, returning NA")
     return(NA)
   }
 
-  # return NA in some cases
+  # check if all currents are NA
+  if(all(is.na(I))) {
+    warning("All I values are NA, returning NA")
+    return(NA)
+  }
+
   if (I0 < min(I) | I0 > max(I)) {
     # warning("extract_pf_from_pi: I0 is not in the range of I, returning pf = NA")
     return(NA)

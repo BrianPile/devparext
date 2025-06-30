@@ -25,6 +25,13 @@ extract_rs_from_vi = function(I, V, I0, Ispan = 4*1e-3) {
   if (is.na(I0) == TRUE) {
     return(NA)
   }
+
+  # check if all currents are NA
+  if(all(is.na(I))) {
+    warning("All I values are NA, returning NA")
+    return(NA)
+  }
+
   if (I0 >= max(I) | I0 <= min(I)) {
     warning("I0 is not with in the range of currents")
     return(NA)

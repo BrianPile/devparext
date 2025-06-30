@@ -17,6 +17,12 @@
 
 extract_iop_from_pi = function(I, P, Pop = 10e-3) {
 
+  # check if all currents are NA
+  if(all(is.na(I))) {
+    warning("All I values are NA, returning NA")
+    return(NA)
+  }
+
   # if the P-I curve doesn't reach Pop, return NA
   if (max(P) <= Pop) {
     return(NA)

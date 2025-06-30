@@ -26,6 +26,11 @@ my_smooth = function(x, N) {
   #   c(h, m, t)
   # }
 
+  if (all(is.na(x))) {
+    warning("x values are all NA, returning NA")
+    return(NA)
+  }
+
   # make sure N is a non-negative integer
   if (N < 0) {
     stop("N must be a non-negative integer!!!")

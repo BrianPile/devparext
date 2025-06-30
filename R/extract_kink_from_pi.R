@@ -12,6 +12,12 @@
 #' @examples
 extract_kink_from_pi = function(I, P, Istart, Istop, plot_debug = FALSE) {
 
+  if (all(is.na(I))) {
+    warning("All I values were NA, returning NAs")
+    return(data.frame("KINK" = NA, "Ikink" = NA))
+  }
+
+
   # level1 smoothing
   n1_smooth = 5
   P = my_smooth(P, n1_smooth)
