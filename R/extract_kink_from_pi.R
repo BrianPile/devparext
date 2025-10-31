@@ -10,7 +10,7 @@
 #' @export
 #'
 #' @examples
-extract_kink_from_pi = function(I, P, Istart, Istop, plot_debug = FALSE) {
+extract_kink_from_pi = function(I, P, Istart, Istop, n1_smooth = 5, plot_debug = FALSE) {
 
   if (all(is.na(I))) {
     warning("All I values were NA, returning NAs")
@@ -19,7 +19,7 @@ extract_kink_from_pi = function(I, P, Istart, Istop, plot_debug = FALSE) {
 
 
   # level1 smoothing
-  n1_smooth = 5
+  # n1_smooth = 5
   P = my_smooth(P, n1_smooth)
 
   # check if Istart and Istop are valid
