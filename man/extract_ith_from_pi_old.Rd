@@ -32,8 +32,3 @@ A numeric value
 \description{
 Extract threshold current from P-I data
 }
-\examples{
-I = example_liv$`current[mA]`
-P = example_liv$`power[mW]`
-Ith = extract_ith_from_pi_old(I, P, method = "second_derivative")
-}

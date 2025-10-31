@@ -7,7 +7,7 @@
 #' @return A numeric value of the photocurrent resistance at the operating voltage
 #' @export
 #'
-#' @examples
+# @examples
 extract_eml_rphoto = function(voltage, dVdI, V0) {
   voltage_sub = voltage[dVdI > 0]
   dVdI_sub = dVdI[dVdI > 0]

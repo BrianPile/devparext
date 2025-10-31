@@ -6,7 +6,7 @@
 #' @return A numeric value
 #' @export
 #'
-#' @examples
+# @examples
 extract_isat_from_pi = function(I, P) {
 
   if (all(is.na(I))) {

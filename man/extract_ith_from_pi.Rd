@@ -26,6 +26,9 @@ extract_ith_from_pi(
 
 \item{plot_debug}{A Boolean value for setting the plot inspection mode}
 }
+\value{
+A list of two numeric values. One per Ith extraction method.
+}
 \description{
 Extract threshold current
 }

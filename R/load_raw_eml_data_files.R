@@ -7,7 +7,7 @@
 #' @export
 #' @importFrom rlang .data
 #'
-#' @examples
+# @examples
 load_raw_eml_data_files = function(paths, pattern = "-EML\\.csv") {
   # due to (non standard evaluation) NSE notes in R CMD check related to
   # data.table

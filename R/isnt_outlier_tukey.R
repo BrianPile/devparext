@@ -8,7 +8,7 @@
 #' @return A logical vector, TRUE means that the value is not an outlier
 #' @export
 #'
-#' @examples
+# @examples
 isnt_outlier_tukey = function(x, k = 1.5, na.rm = TRUE) {
   quar = stats::quantile(x, probs = c(0.25, 0.75), na.rm = na.rm)
   iqr = diff(quar)

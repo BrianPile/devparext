@@ -10,10 +10,10 @@
 #' @return A numeric value
 #' @export
 #'
-#' @examples
-#' I = example_liv$`current[mA]`
-#' P = example_liv$`power[mW]`
-#' Ith = extract_ith_from_pi_old(I, P, method = "second_derivative")
+# @examples
+# I = example_liv$`current[mA]`
+# P = example_liv$`power[mW]`
+# Ith = extract_ith_from_pi_old(I, P, method = "second_derivative")
 extract_ith_from_pi_old = function(I, P, method = "intercept", n1_smooth = 1, n2_smooth = 1, n3_smooth = 1) {
 
   # TODO: modify 2nd derivative method so pracma::findpeaks isn't relied on it

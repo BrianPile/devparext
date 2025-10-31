@@ -5,7 +5,7 @@
 #' @param threshold a numeric value
 #' @param plot_debug a Boolean value
 #'
-#' @return
+#' @return a numeric value
 #' @export
 #'
 # @examples

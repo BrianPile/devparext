@@ -15,6 +15,9 @@ extract_full_width(x, y, threshold = -20, plot_debug = FALSE)
 
 \item{plot_debug}{a Boolean value}
 }
+\value{
+a numeric value
+}
 \description{
 Extract full-width from a distribution
 }

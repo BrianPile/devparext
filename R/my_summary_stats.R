@@ -6,7 +6,7 @@
 #' @export
 #' @importFrom rlang .data
 #'
-#' @examples
+# @examples
 my_summary_stats = function(df) {
   df = df |>
     dplyr::mutate(isnt_outlier = isnt_outlier_tukey(.data$x)) |>

@@ -7,7 +7,7 @@
 #' @return A numeric value for Pf
 #' @export
 #'
-#' @examples
+# @examples
 extract_eml_pf = function(voltage, power, V0 = 0) {
   Pf = stats::approx(voltage, power, V0)$y
   return(Pf)

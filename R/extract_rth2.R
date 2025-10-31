@@ -7,7 +7,7 @@
 #' @return A data frame with column names Rth2, mRth2Pth, Rth2r2
 #' @export
 #'
-#' @examples
+# @examples
 extract_rth2 = function(Pth, Lp, m_hs) {
 
   if (all(is.na(Lp))) {

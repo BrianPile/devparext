@@ -6,7 +6,7 @@
 #' @importFrom rlang .data
 #' @export
 #'
-#' @examples
+# @examples
 summarize_raw_eml_data = function(df_eml) {
   df_summary_eml = df_eml |>
     dplyr::summarize(

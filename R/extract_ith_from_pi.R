@@ -7,12 +7,12 @@
 #' @param n3_smooth Smooth span for P-I curve 2nd derivative
 #' @param plot_debug A Boolean value for setting the plot inspection mode
 #'
-#' @return
+#' @return A list of two numeric values. One per Ith extraction method.
 #' @export
 #' @importFrom graphics abline hist grid par
 #' @importFrom stats approx
 #'
-#' @examples
+# @examples
 
 extract_ith_from_pi = function(I, P, n1_smooth = 1, n2_smooth = 1, n3_smooth = 1, plot_debug = FALSE) {
   # TODO: remove negative values from second derivative?

@@ -7,7 +7,7 @@
 #' @return A data frame with column names Rth, mRthhs, mRthPth, b, and Pthr2
 #' @export
 #'
-#' @examples
+# @examples
 extract_rth = function(temps, pow_thermal, peak_wav) {
 
   linearMod = stats::lm(peak_wav ~ temps + pow_thermal,

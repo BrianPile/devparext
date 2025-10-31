@@ -6,7 +6,7 @@
 #' @return a dataframe
 #' @export
 #'
-#' @examples
+# @examples
 my_linear_fit = function(x, y) {
   linear_model = stats::lm(y ~ x)
 

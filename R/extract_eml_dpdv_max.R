@@ -6,7 +6,7 @@
 #' @return a numeric value
 #' @export
 #'
-#' @examples
+# @examples
 extract_eml_dpdv_max = function(V, P) {
   dPdV = my_derivative(V, P)
   Vop = extract_eml_vop(V, dPdV)

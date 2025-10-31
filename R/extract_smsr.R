@@ -29,7 +29,7 @@ extract_smsr = function(wav, power, smooth_fraction = 0, plot_debug = FALSE, plo
     warning("extract_smsr() paramter value: smooth_fraction > 0.003 is not reccomended by Brian!!!")
   }
 
-  noise_floor = quantile(power, 0.98)
+  noise_floor = stats::quantile(power, 0.98)
   SNR = max(power) - noise_floor
 
   if (smooth_fraction != 0) {

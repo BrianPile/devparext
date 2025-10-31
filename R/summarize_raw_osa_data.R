@@ -5,7 +5,7 @@
 #' @return a data frame containing OSA-extracted parameteric data
 #' @export
 #'
-#' @examples
+# @examples
 summarize_raw_osa_data = function(df_osa) {
   df_summary_osa = df_osa |>
     dplyr::summarize(

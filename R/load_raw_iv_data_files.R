@@ -7,7 +7,7 @@
 #' @export
 #' @importFrom rlang .data
 #'
-#' @examples
+# @examples
 load_raw_iv_data_files = function(paths, pattern = "-IV\\.csv$") {
   iv_id = NULL # due to NSE notes in R CMD check related to data.table
 

@@ -13,7 +13,7 @@
 #' @return A data frame containing LIV-extracted parametric data
 #' @export
 #'
-#' @examples
+# @examples
 summarize_raw_liv_data = function(df_liv, If_vec, Ix_vec, Pop_vec, Ik1 = 30, Ik2 = 140, n1_smooth = 1, n2_smooth = 1, n3_smooth = 1) {
 
   # moving average smoothing

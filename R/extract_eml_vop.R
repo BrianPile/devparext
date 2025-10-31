@@ -6,7 +6,7 @@
 #' @return A numeric value of the operating voltage
 #' @export
 #'
-#' @examples
+# @examples
 extract_eml_vop = function(voltage, dPdV) {
   Vop = voltage[which.max(dPdV)]
   return(Vop)
