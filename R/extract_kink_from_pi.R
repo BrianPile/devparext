@@ -6,12 +6,13 @@
 #' @param Istop a numeric value for the end of the current span to check
 #' @param n1_smooth an integer defining the moving average smoothing width (should be odd, or will be converted to odd value)
 #' @param plot_debug a logical value to enable plot debug mode
+#' @param plot_title A string for the plot title
 #'
 #' @return a data frame
 #' @export
 #'
 # @examples
-extract_kink_from_pi = function(I, P, Istart, Istop, n1_smooth = 5, plot_debug = FALSE) {
+extract_kink_from_pi = function(I, P, Istart, Istop, n1_smooth = 5, plot_debug = FALSE, plot_title = "default plot title") {
 
   if (all(is.na(I))) {
     warning("All I values were NA, returning NAs")
@@ -74,7 +75,7 @@ extract_kink_from_pi = function(I, P, Istart, Istop, n1_smooth = 5, plot_debug =
     # 11
     plot(I /1e-3, P /1e-3,
          type = "l",
-         # main = basename(liv_file), cex.main = 0.7,
+         main = plot_title,
          xlab = "Current (mA)",
          ylab = "Power (mW)")
     grid()
