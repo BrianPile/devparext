@@ -4,12 +4,13 @@
 #' @param P a numeric vector of measured output powers
 #' @param Istart a numeric value for the beginning of the current span to check
 #' @param Istop a numeric value for the end of the current span to check
+#' @param n1_smooth an integer defining the moving average smoothing width (should be odd, or will be converted to odd value)
 #' @param plot_debug a logical value to enable plot debug mode
 #'
 #' @return a data frame
 #' @export
 #'
-#' @examples
+# @examples
 extract_kink_from_pi = function(I, P, Istart, Istop, n1_smooth = 5, plot_debug = FALSE) {
 
   if (all(is.na(I))) {
