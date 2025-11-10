@@ -4,7 +4,15 @@
 \alias{extract_kink_from_pi}
 \title{Extract kink deviation from P-I curve}
 \usage{
-extract_kink_from_pi(I, P, Istart, Istop, n1_smooth = 5, plot_debug = FALSE)
+extract_kink_from_pi(
+  I,
+  P,
+  Istart,
+  Istop,
+  n1_smooth = 5,
+  plot_debug = FALSE,
+  plot_title = "default plot title"
+)
 }
 \arguments{
 \item{I}{a numeric vector of sourced current values}
@@ -18,6 +26,8 @@ extract_kink_from_pi(I, P, Istart, Istop, n1_smooth = 5, plot_debug = FALSE)
 \item{n1_smooth}{an integer defining the moving average smoothing width (should be odd, or will be converted to odd value)}
 
 \item{plot_debug}{a logical value to enable plot debug mode}
+
+\item{plot_title}{A string for the plot title}
 }
 \value{
 a data frame
