@@ -40,16 +40,21 @@ extract_mode_hop = function(
   resids_norm_pct = 100 * resids / y_range
   max_resid_norm_pct = max(abs(resids_norm_pct))
 
-  # find mode-hop current. find the two largest resids_norm and average them
+  # find mode-hop current if max_resid_norm_pct > 4%. Find the two largest resids_norm and average them
+  mh_current = NA_real_
   idx = order(abs(resids), decreasing = TRUE)
-  largest_two_positions = idx[1:2]
-  mh_current = mean(x[largest_two_positions])
+  if (length(idx) >= 2) {
+    largest_two_positions = idx[1:2]
+    if (max_resid_norm_pct > 4) {
+      mh_current = mean(x[largest_two_positions])
+    }
+  }
 
 
   # debug plots ----
   main_cex = 0.9
 
-  if (plot_debug == TRUE) {
+  if (plot_debug) {
     # config plot layout
     par(
       mfrow = c(2,2),
