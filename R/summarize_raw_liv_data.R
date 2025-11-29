@@ -34,7 +34,7 @@ summarize_raw_liv_data = function(df_liv, If_vec, Ix_vec, Pop_vec, Ik1 = 30, Ik2
       Rdth = extract_rs_from_vi(.data$current, .data$voltage, I0 = .data$Ith1d*1e-3),
       Pmax = base::max(.data$power_sm, na.rm = TRUE) / 1e-3,
       Isat = extract_isat_from_pi(.data$current, .data$power) / 1e-3,
-      df_kink = extract_kink_from_pi(.data$current, .data$power, Istart = Ik1*1e-3, Istop = Ik2*1e-3)
+      df_kink = extract_kink_from_pi(.data$current, .data$power, Istart = Ik1*1e-3, Istop = Ik2*1e-3, n1_smooth = n1_smooth)
     ) |>
     tidyr::unpack(cols = .data$df_kink) |>
     dplyr::mutate(Ikink = .data$Ikink / 1e-3) |>
