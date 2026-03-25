@@ -12,8 +12,13 @@ my_linear_fit(x, y)
 \item{y}{a numeric vector}
 }
 \value{
-a dataframe
+A data frame
 }
 \description{
 Create linear fit to x-y data
+}
+\examples{
+x = 1:3
+y = 2*x + 5 + rnorm(length(x), mean = 0 , sd = 0.1)
+my_linear_fit(x, y)
 }
