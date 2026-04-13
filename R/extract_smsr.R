@@ -133,6 +133,10 @@ extract_smsr = function(wav, power, smooth_fraction = 0, plot_debug = FALSE, plo
     # draw a line at the "noise floor"
     graphics::abline(h = noise_floor, col = "blue", lty = 1)
 
+
+    # reset to default 1x1 layout
+    par(mfrow = c(1, 1))
+
     # commenting this out: try to use wrapper functions instead in external
     # scripts/functions for pausing. (hint: make a function with call to
     # extract_smsr then pause. walk over the groups of OSA data after feeding
