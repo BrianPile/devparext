@@ -4,7 +4,13 @@
 \alias{extract_full_width}
 \title{Extract full-width from a distribution}
 \usage{
-extract_full_width(x, y, threshold = -20, plot_debug = FALSE)
+extract_full_width(
+  x,
+  y,
+  threshold = -20,
+  plot_debug = FALSE,
+  plot_title = "default plot title"
+)
 }
 \arguments{
 \item{x}{a numeric vector}
@@ -14,6 +20,8 @@ extract_full_width(x, y, threshold = -20, plot_debug = FALSE)
 \item{threshold}{a numeric value}
 
 \item{plot_debug}{a Boolean value}
+
+\item{plot_title}{A string for the plot title}
 }
 \value{
 a numeric value
