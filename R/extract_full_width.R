@@ -4,12 +4,13 @@
 #' @param y a numeric vector
 #' @param threshold a numeric value
 #' @param plot_debug a Boolean value
+#' @param plot_title A string for the plot title
 #'
 #' @return a numeric value
 #' @export
 #'
 # @examples
-extract_full_width = function(x, y, threshold = -20, plot_debug = FALSE) {
+extract_full_width = function(x, y, threshold = -20, plot_debug = FALSE, plot_title = "default plot title") {
   # TODO: have option for linear vs dB y-values? for now it will be for dB values...optical spectra
 
   # normalize y-values
@@ -51,9 +52,12 @@ extract_full_width = function(x, y, threshold = -20, plot_debug = FALSE) {
   peak_x = x[which.max(y)]
 
   if (plot_debug == TRUE) {
-    plot(x, y_norm, type = "l",
-         xlim = peak_x + 5*c(-full_width, full_width),
-         ylim = c(-70, 10))
+    plot(
+      x, y_norm, type = "l",
+      xlim = peak_x + 5*c(-full_width, full_width),
+      ylim = c(-70, 10),
+      main = plot_title
+    )
     grid()
     abline(h = threshold, col = "red")
     abline(v = left_x, col = "red")
@@ -67,23 +71,3 @@ extract_full_width = function(x, y, threshold = -20, plot_debug = FALSE) {
   # return full-width result
   return(full_width)
 }
-
-# graphical_check_full_width = function(df, group_data) {
-#
-#   print(group_data)
-#   extract_full_width(df$wavelength, df$power, plot_debug = TRUE)
-#
-# }
-
-
-
-# df_osa = data.table::fread(here("inst/extdata/poor_spectra_for_bw_extraction_development/ELS0025_OSA.csv"))
-# df_osa = data.table::fread(here("inst/extdata/poor_spectra_for_bw_extraction_development/spx_els_osa_data.csv"))
-#
-# extract_full_width(wav, pow, threshold = -65, plot_debug = TRUE)
-
-
-# df_osa |>
-#   group_by(els_id, channel, If) |>
-#   group_walk(~graphical_check_full_width(.x, .y))
-
