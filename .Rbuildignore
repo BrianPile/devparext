@@ -3,3 +3,5 @@
 ^LICENSE\.md$
 ^my_helper_development_scripts$
 ^local-private-data$
+^\.positai$
+^\.claude$
