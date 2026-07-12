@@ -26,6 +26,7 @@ extract_kink_from_pi = function(I, P, Istart, Istop, n1_smooth = 5, plot_debug =
 
   # check if Istart and Istop are valid
   if (is.na(Istart) | is.na(Istop)) {
+    warning("`Istart` or `Istop` was NA valued")
     return(
       data.frame(
         "KINK" = NA,
@@ -37,7 +38,8 @@ extract_kink_from_pi = function(I, P, Istart, Istop, n1_smooth = 5, plot_debug =
   Isub = I[I >= Istart & I <= Istop]
 
   # if the subset is empty return NA's
-  if (identical(Isub, integer(0))) {
+  if (length(Isub) == 0) {
+    warning("The currents subsetting evaluated to an empty result")
     return(
       data.frame(
         "KINK" = NA,
