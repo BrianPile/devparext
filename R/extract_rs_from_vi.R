@@ -45,6 +45,9 @@ extract_rs_from_vi = function(I, V, I0, Ispan = 4*1e-3) {
   Vsub = V[I>=(I0-Ispan/2) & I<=(I0+Ispan/2)]
 
   # create linear fit to the V-I subspan
-  linearMod = stats::lm(V ~ I, data = data.frame("I" = Isub, "V" = Vsub))
-  Rs = stats::coef(summary(linearMod))["I", "Estimate"] # get the slope of the linear fit
+  # linearMod = stats::lm(V ~ I, data = data.frame("I" = Isub, "V" = Vsub))
+  # Rs = stats::coef(summary(linearMod))["I", "Estimate"] # get the slope of the linear fit
+
+  Rs = my_linear_fit(Isub, Vsub)$m
+
 }
